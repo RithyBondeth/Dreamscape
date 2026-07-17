@@ -86,6 +86,15 @@ function Garage() {
         <meshStandardMaterial color="#292a26" roughness={0.52} metalness={0.18} />
       </RoundedBox>
       <RoundedBox
+        args={[6.6, 0.08, 8.2]}
+        radius={0.08}
+        smoothness={3}
+        position={[0, 0.24, -0.2]}
+        receiveShadow
+      >
+        <meshStandardMaterial color="#3c3c36" roughness={0.34} metalness={0.26} />
+      </RoundedBox>
+      <RoundedBox
         args={[8.8, 0.32, 12]}
         radius={0.08}
         smoothness={3}
@@ -106,6 +115,13 @@ function Garage() {
         <boxGeometry args={[0.24, 4.12, 5.3]} />
         <meshStandardMaterial color="#22231f" roughness={0.54} metalness={0.28} />
       </mesh>
+
+      {[-3.3, -2.2, -1.1, 0, 1.1, 2.2, 3.3].map((x) => (
+        <mesh key={x} position={[x, 2.22, -5.72]} castShadow>
+          <boxGeometry args={[0.06, 3.35, 0.08]} />
+          <meshStandardMaterial color="#151613" roughness={0.42} metalness={0.38} />
+        </mesh>
+      ))}
 
       {[-2.6, 0, 2.6].map((x) => (
         <mesh key={x} position={[x, 4.04, 0.2]} rotation={[Math.PI / 2, 0, 0]}>

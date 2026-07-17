@@ -13,6 +13,19 @@ import {
 
 export const VILLA_MODEL_URL = "/assets/models/villa-optimized.glb";
 
+const COLLIDING_LANDSCAPE_PATTERN =
+  /bush|cypress|fountain|garden|hedge|path|pond/i;
+
+function isCollidingLandscape(object: Mesh) {
+  const materialNames = Array.isArray(object.material)
+    ? object.material.map((material) => material.name).join(" ")
+    : object.material.name;
+
+  return COLLIDING_LANDSCAPE_PATTERN.test(
+    `${object.name} ${object.parent?.name ?? ""} ${materialNames}`,
+  );
+}
+
 function improveMaterial(material: Material, anisotropy: number) {
   const upgraded = material.clone();
   const withMap = upgraded as Material & { map?: Texture | null };
@@ -41,6 +54,13 @@ function prepareVilla(source: Object3D, anisotropy: number) {
 
   clone.traverse((object) => {
     if (!(object instanceof Mesh)) return;
+
+    if (isCollidingLandscape(object)) {
+      object.visible = false;
+      object.castShadow = false;
+      object.receiveShadow = false;
+      return;
+    }
 
     object.castShadow = !/glass|ivy|curtain/i.test(object.name);
     object.receiveShadow = true;

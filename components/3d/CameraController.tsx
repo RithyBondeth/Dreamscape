@@ -22,9 +22,9 @@ const CAMERA_VIEWS: Record<
     fov: 38,
   },
   garage: {
-    position: [20.5, 4.2, 8.5],
-    target: [13.6, 1.15, -1.5],
-    fov: 32,
+    position: [13.8, 2.8, 8.2],
+    target: [13.5, 1.05, -1.8],
+    fov: 34,
   },
   garden: {
     position: [-23, 8.5, 10],

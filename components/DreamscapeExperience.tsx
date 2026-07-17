@@ -17,6 +17,33 @@ const VIEWS: Array<{ id: CameraViewId; number: string; label: string }> = [
   { id: "garden", number: "03", label: "Poolside" },
 ];
 
+const VIEW_COPY: Record<
+  CameraViewId,
+  { eyebrow: string; lead: string; accent: string; description: string }
+> = {
+  exterior: {
+    eyebrow: "An architecture of calm",
+    lead: "After",
+    accent: "dusk.",
+    description:
+      "Move through a private world where warm stone, water and light meet at the edge of evening.",
+  },
+  garage: {
+    eyebrow: "Private automotive gallery",
+    lead: "Showroom",
+    accent: "glow.",
+    description:
+      "A controlled garage perspective for the residence's performance centerpiece.",
+  },
+  garden: {
+    eyebrow: "Poolside atmosphere",
+    lead: "Water",
+    accent: "light.",
+    description:
+      "A low evening view across the garden, terrace and illuminated pool edge.",
+  },
+};
+
 function LoadingScreen() {
   const { active, progress } = useProgress();
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -51,6 +78,7 @@ function LoadingScreen() {
 export default function DreamscapeExperience() {
   const [activeView, setActiveView] = useState<CameraViewId>("exterior");
   const activeIndex = VIEWS.findIndex((view) => view.id === activeView);
+  const copy = VIEW_COPY[activeView];
 
   return (
     <main className="dreamscape-shell">
@@ -111,18 +139,17 @@ export default function DreamscapeExperience() {
 
         <div className="flex items-end justify-between">
           <div className="max-w-[620px]">
-            <div className="reveal-up-delayed mb-3 flex items-center gap-3 text-[8px] font-semibold uppercase tracking-[0.32em] text-[#d5b17b] sm:mb-5">
+            <div className="reveal-up-delayed mb-3 flex items-center gap-3 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#d5b17b] sm:mb-5">
               <span className="h-px w-8 bg-[#d5b17b]" />
-              An architecture of calm
+              {copy.eyebrow}
             </div>
-            <h1 className="reveal-up font-display text-[clamp(3.3rem,8vw,7.2rem)] font-normal leading-[0.72] tracking-[-0.055em] text-[#f5efe4]">
-              After
-              <span className="ml-[0.22em] italic text-[#d9c3a2]">dusk.</span>
+            <h1 className="reveal-up font-display text-5xl font-normal leading-[0.9] tracking-normal text-[#f5efe4] sm:text-6xl lg:text-7xl 2xl:text-8xl">
+              {copy.lead}{" "}
+              <span className="italic text-[#d9c3a2]">{copy.accent}</span>
             </h1>
             <div className="mt-5 flex flex-col gap-4 sm:mt-7 sm:flex-row sm:items-end sm:gap-8">
               <p className="hidden max-w-60 text-[10px] leading-[1.8] tracking-[0.06em] text-white/55 sm:block">
-                Move through a private world where warm stone, water and light
-                meet at the edge of evening.
+                {copy.description}
               </p>
 
               <div className="pointer-events-auto grid grid-cols-2 gap-2 sm:flex sm:gap-3">
